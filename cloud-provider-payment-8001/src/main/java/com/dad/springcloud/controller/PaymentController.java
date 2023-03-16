@@ -4,7 +4,6 @@ import com.dad.springcloud.entities.Payment;
 import com.dad.springcloud.service.PaymentService;
 import com.dad.springcloud.vo.CommonResult;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,8 +55,17 @@ public class PaymentController {
         }
     }
 
+    @PostMapping(value="delPaymentById/{id}")
+    public CommonResult delPayment(@PathVariable Long id ){
+        int result =paymentService.delPaymentById(id);
+        if(result >0){
+            return new CommonResult(200,"删除成功",result);
 
+        }else{
+            return new CommonResult(999,"删除失败",result);
+        }
 
+    }
 
 
 }
