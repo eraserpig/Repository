@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 
 
 @RestController
@@ -66,6 +67,21 @@ public class PaymentController {
         }
 
     }
+
+    @GetMapping(value="getPaymentList")
+    public  CommonResult getPaymentList(){
+        ArrayList<Payment> paymentList=paymentService.getPayMentList();
+        if(paymentList.size()>0){
+            return  new CommonResult(200,"插询成功",paymentList);
+        }else{
+            return new CommonResult(999,"插询失败",null);
+        }
+
+    }
+
+
+
+
 
 
 }

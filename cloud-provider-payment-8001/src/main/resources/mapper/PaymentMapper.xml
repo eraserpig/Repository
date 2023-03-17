@@ -35,9 +35,10 @@
      <select id="getPayMentList" parameterType="Payment" resultMap="BaseResultMap">
         <include refid="selectPaymentVo"/>
         <where>
-            <if test="id!=null and id !=''" >and id=#{id}</if>
+            1=1
+            <if test="id!=null and id !=''" > and id=#{id}</if>
             <if test="serial!=null and serial!=''"> and serial=#{serial}</if>
-             order by id
+              order by id
         </where>
      </select>
         <update id="upPayment" parameterType="Payment" >
