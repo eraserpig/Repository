@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -29,6 +31,22 @@ public class OrderController {
     @GetMapping("/getPaymentById/{id}")
     public CommontResult<Payment> getPaymentById(@PathVariable("id") Long id){
         return restTemplate.getForObject(PAYMENT_URL+"/get/"+id,CommontResult.class);
+    }
+
+    @GetMapping("/getPaymentList")
+    public CommontResult <Payment> getPaymentList(){
+        return restTemplate.getForObject(PAYMENT_URL+"/getPaymentList",CommontResult.class);
+    }
+
+    @GetMapping("/upPayment")
+    public CommontResult <Payment> upPaymentById(Payment payment){
+        return  restTemplate.postForObject(PAYMENT_URL+"/upPayment",payment,CommontResult.class);
+
+    }
+    @GetMapping("/delPayment/{id}")
+    public CommontResult <Payment> delPaymentById(@PathVariable("id") Long id){
+        return  restTemplate.postForObject(PAYMENT_URL+"/delPaymentById/{id}",id,CommontResult.class);
+
     }
 
 

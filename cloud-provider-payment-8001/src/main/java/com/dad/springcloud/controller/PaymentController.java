@@ -56,7 +56,7 @@ public class PaymentController {
         }
     }
 
-    @PostMapping(value="delPaymentById/{id}")
+    @PostMapping(value="/delPaymentById/{id}")
     public CommonResult delPayment(@PathVariable Long id ){
         int result =paymentService.delPaymentById(id);
         if(result >0){
@@ -68,7 +68,7 @@ public class PaymentController {
 
     }
 
-    @GetMapping(value="getPaymentList")
+    @GetMapping(value="/getPaymentList")
     public  CommonResult getPaymentList(){
         ArrayList<Payment> paymentList=paymentService.getPayMentList();
         if(paymentList.size()>0){
