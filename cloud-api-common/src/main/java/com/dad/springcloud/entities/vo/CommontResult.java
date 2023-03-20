@@ -1,20 +1,18 @@
-package com.dad.springcloud.vo;
+package com.dad.springcloud.entities.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CommonResult <T>{
+@NoArgsConstructor
+public class CommontResult <T>{
     private  Integer code;
     private String msg;
-    private T data;
-
-    public  CommonResult(Integer code ,String msg){
+    private  T data;
+    public CommontResult(Integer code ,String msg){
         this(code,msg,null);
     }
-
 
 }

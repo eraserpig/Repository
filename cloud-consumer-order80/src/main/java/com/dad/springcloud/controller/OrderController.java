@@ -1,8 +1,8 @@
 package com.dad.springcloud.controller;
 
-import com.dad.springcloud.entities.CommontResult;
-import com.dad.springcloud.entities.Payment;
+
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,10 +45,8 @@ public class OrderController {
     }
     @GetMapping("/delPayment/{id}")
     public CommontResult <Payment> delPaymentById(@PathVariable("id") Long id){
-        return  restTemplate.postForObject(PAYMENT_URL+"/delPaymentById/{id}",id,CommontResult.class);
+        return  restTemplate.postForObject(PAYMENT_URL+"/delPaymentById/"+id, HttpMethod.DELETE,CommontResult.class);
 
     }
-
-
 
 }

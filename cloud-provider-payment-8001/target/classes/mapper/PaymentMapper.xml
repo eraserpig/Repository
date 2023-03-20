@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dad.springcloud.dao.PaymentDao">
 
-    <resultMap id="BaseResultMap" type="com.dad.springcloud.entities.Payment" >
+    <resultMap id="BaseResultMap" type="com.dad.springcloud.entities.dao.Payment" >
         <!--    数据库         实体类-->
         <id column="id" property="id" jdbcType="BIGINT"/>
         <id column="serial" property="serial" jdbcType="VARCHAR" />
@@ -44,8 +44,8 @@
         <update id="upPayment" parameterType="Payment" >
             update payment
         <trim prefix="SET" suffixOverrides=",">
-            <if test="id!=null and id !=''" > id=#{id}</if>
-            <if test="serial!=null and serial!=''"> and serial=#{serial}</if>
+<!--            <if test="id!=null and id !=''" > id=#{id}</if>-->
+            <if test="serial!=null and serial!=''">  serial=#{serial}</if>
         </trim>
              where id=#{id}
         </update>

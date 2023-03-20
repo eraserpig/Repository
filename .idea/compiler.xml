@@ -7,11 +7,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="cloud-consumer-order80" />
         <module name="cloud-provider-payment-8001" />
+        <module name="cloud-api-common" />
+        <module name="cloud-consumer-order80" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="cloud-api-common" target="8" />
+      <module name="cloud-common" target="8" />
       <module name="cloud-consumer-order80" target="8" />
       <module name="cloud-provider-payment-8001" target="1.8" />
       <module name="wind" target="1.8" />

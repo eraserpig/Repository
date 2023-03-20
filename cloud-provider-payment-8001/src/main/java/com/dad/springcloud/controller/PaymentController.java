@@ -1,8 +1,7 @@
 package com.dad.springcloud.controller;
 
-import com.dad.springcloud.entities.Payment;
+
 import com.dad.springcloud.service.PaymentService;
-import com.dad.springcloud.vo.CommonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @PostMapping(value = "/create")
-    public CommonResult create(@Validated @RequestBody Payment payment){
+    public CommonResult create(@Validated @RequestBody  Payment payment){
         int result=paymentService.createPayment(payment);
         log.info("*****插入结果"+ result);
         if(result>0){

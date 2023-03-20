@@ -1,4 +1,4 @@
-package com.dad.springcloud.entities;
+package com.dad.springcloud.entities.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
