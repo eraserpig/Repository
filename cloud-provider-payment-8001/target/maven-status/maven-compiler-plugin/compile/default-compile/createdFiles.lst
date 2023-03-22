@@ -1,7 +1,0 @@
-com\dad\springcloud\controller\PaymentController.class
-com\dad\springcloud\vo\CommonResult.class
-com\dad\springcloud\entities\Payment.class
-com\dad\springcloud\PaymentApplication8001.class
-com\dad\springcloud\dao\PaymentDao.class
-com\dad\springcloud\service\PaymentService.class
-com\dad\springcloud\service\serviceImpl\PaymentServiceImpl.class

@@ -1,7 +1,7 @@
 package com.dad.springcloud.service.serviceImpl;
 
 import com.dad.springcloud.dao.PaymentDao;
-import com.dad.springcloud.entities.Payment;
+import com.dad.springcloud.entities.dao.Payment;
 import com.dad.springcloud.service.PaymentService;
 import org.springframework.stereotype.Service;
 

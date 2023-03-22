@@ -1,6 +1,8 @@
 package com.dad.springcloud.controller;
 
 
+import com.dad.springcloud.entities.dao.Payment;
+import com.dad.springcloud.entities.vo.CommonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @RestController
 @Slf4j
@@ -24,28 +25,28 @@ public class OrderController {
     private RestTemplate restTemplate;
 
     @GetMapping("/payment/create")
-    public CommontResult<Payment> create(Payment payment){
-        return restTemplate.postForObject(PAYMENT_URL+"/create",payment,CommontResult.class);
+    public CommonResult<Payment> create(Payment payment){
+        return restTemplate.postForObject(PAYMENT_URL+"/create",payment, CommonResult.class);
     }
 
     @GetMapping("/getPaymentById/{id}")
-    public CommontResult<Payment> getPaymentById(@PathVariable("id") Long id){
-        return restTemplate.getForObject(PAYMENT_URL+"/get/"+id,CommontResult.class);
+    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id){
+        return restTemplate.getForObject(PAYMENT_URL+"/get/"+id, CommonResult.class);
     }
 
     @GetMapping("/getPaymentList")
-    public CommontResult <Payment> getPaymentList(){
-        return restTemplate.getForObject(PAYMENT_URL+"/getPaymentList",CommontResult.class);
+    public CommonResult<Payment> getPaymentList(){
+        return restTemplate.getForObject(PAYMENT_URL+"/getPaymentList", CommonResult.class);
     }
 
     @GetMapping("/upPayment")
-    public CommontResult <Payment> upPaymentById(Payment payment){
-        return  restTemplate.postForObject(PAYMENT_URL+"/upPayment",payment,CommontResult.class);
+    public CommonResult<Payment> upPaymentById(Payment payment){
+        return  restTemplate.postForObject(PAYMENT_URL+"/upPayment",payment, CommonResult.class);
 
     }
     @GetMapping("/delPayment/{id}")
-    public CommontResult <Payment> delPaymentById(@PathVariable("id") Long id){
-        return  restTemplate.postForObject(PAYMENT_URL+"/delPaymentById/"+id, HttpMethod.DELETE,CommontResult.class);
+    public CommonResult<Payment> delPaymentById(@PathVariable("id") Long id){
+        return  restTemplate.postForObject(PAYMENT_URL+"/delPaymentById/"+id, HttpMethod.DELETE, CommonResult.class);
 
     }
 

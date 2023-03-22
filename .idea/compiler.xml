@@ -10,12 +10,14 @@
         <module name="cloud-provider-payment-8001" />
         <module name="cloud-api-common" />
         <module name="cloud-consumer-order80" />
+        <module name="cloud-eureka-server7001" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cloud-api-common" target="8" />
       <module name="cloud-common" target="8" />
       <module name="cloud-consumer-order80" target="8" />
+      <module name="cloud-eureka-server7001" target="8" />
       <module name="cloud-provider-payment-8001" target="1.8" />
       <module name="wind" target="1.8" />
     </bytecodeTargetLevel>

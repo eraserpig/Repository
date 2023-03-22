@@ -1,7 +1,7 @@
 package com.dad.springcloud.service;
 
 
-import org.apache.ibatis.annotations.Param;
+import com.dad.springcloud.entities.dao.Payment;
 
 import java.util.ArrayList;
 
