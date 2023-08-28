@@ -9,7 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 @RestController
@@ -81,7 +83,11 @@ public class PaymentController {
     }
 
 
-
+    @PostMapping("/chagePdf")
+    public String getInwardRemittanceNotice(@RequestBody Map requestJson, HttpServletResponse response) {
+        log.info("下载收款通知单");
+        return paymentService.getOutwardRemittanceNotice(requestJson, response);
+    }
 
 
 
