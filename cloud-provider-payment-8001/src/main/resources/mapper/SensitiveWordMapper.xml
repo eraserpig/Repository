@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dad.springcloud.dao.SensitiveWordDao">
+
+
+    <select id="getSensitiveWordListAll" resultType="com.dad.springcloud.entities.DTO.SensitiveWordDTO">
+        select
+            a.id,
+            a.keyword,
+            case when  a.status='1' then '启用'
+                 when a.status='0' then '禁用'  end as  status ,
+            a.create_time createTime ,
+            a.create_user createUser,
+            a.updated_time updatedTime,
+            a.update_user updateUser
+        from aml_sensitive_word a
+    </select>
+    <insert id="createSensitiveWord" parameterType="SensitiveWord" useGeneratedKeys="true" keyProperty="id">
+    insert into aml_sensitive_word (keyword,status,create_user) values  (#{keyword},#{status},#{createUser}) ;
+    </insert>
+
+</mapper>

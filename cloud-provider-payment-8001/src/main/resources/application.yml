@@ -24,3 +24,9 @@ eureka:
   #    defaultZone: http://localhost:7001/eureka
       # 集群版
       defaultZone: http://eureka7002.com:7002/eureka,http://eureka7001.com:7001/eureka
+
+file:
+  path: E:\haierPro\HceRepo\02项目管理\17SFC线上化\03系统设计\模板文件
+
+report:
+  path: D:\dailyTestFIle\moban\wordTableToPdf.docx  #根据模板文件位置设定

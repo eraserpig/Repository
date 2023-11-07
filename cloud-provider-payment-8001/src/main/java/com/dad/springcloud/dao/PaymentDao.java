@@ -15,4 +15,5 @@ public interface PaymentDao {
     Payment getPaymentById(@Param("id") Long id );
     ArrayList<Payment>  getPayMentList();
     int upPayment(Payment payment);
+
 }
