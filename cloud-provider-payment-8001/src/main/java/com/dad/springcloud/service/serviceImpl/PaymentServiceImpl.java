@@ -104,43 +104,6 @@ public class PaymentServiceImpl implements  PaymentService{
     }
 
 
-    public static void main(String[] args) throws IOException, DocumentException {
-
-        /*Map<String, Object> paramMap = new HashMap<String, Object>();
-        // pdf路径
-        String file = "d:/test2.pdf";
-        String path = PdfKit.class.getClassLoader().getResource("").getPath();
-
-        //执行后rootPath 为/D:/Workspace/tourservice/WebContent
-
-       // String rootPath = path.substring(0, path.indexOf("/WEB-INF/"));//rootPath为web项目的根目录。
-        // 读取html模板
-        // 解决PDF中文不显示
-        String fontPath =  PdfKit.class.getClassLoader().getResource("simsunb.ttf").getPath();
-
-        String html = "D:\\dailyTestFIle\\statementinfo\\20230707\\020000000042.20230828102104810.html";
-        PdfKit.creatHtmlpdf(html, file);
-    }*/
-
-        String file = "D:\\dailyTestFIle\\toPdf\\testWind.pdf";
-        String htmlFile="D:\\dailyTestFIle\\statementinfo\\20230707\\020000000042.20230830093201296.html";
-            String waterMarkText =  "";
-            InputStream inputStream=new FileInputStream(htmlFile);
-            //微软雅黑在windows系统里的位置如下，linux系统直接拷贝该文件放在linux目录下即可
-        BaseFont bf = null;
-        ApplicationHome home = new ApplicationHome(PaymentServiceImpl.class);
-        File jarFile = home.getDir();
-        String    rootPath = jarFile.getPath();
-        String   mouldPath = rootPath.substring(0,rootPath.indexOf("cloud-provider-payment-8001")+"cloud-provider-payment-8001".length())+"\\src\\main\\resources\\Fonts";
-        mouldPath = mouldPath.replace("\\","/");
-        HtmlToPdfUtils.convertToPdf(inputStream, waterMarkText, mouldPath, new FileOutputStream(file));
-        }
-
-
-
-
-
-
 
 
 }

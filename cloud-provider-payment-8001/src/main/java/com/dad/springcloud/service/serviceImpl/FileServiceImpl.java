@@ -1,14 +1,20 @@
 package com.dad.springcloud.service.serviceImpl;
 
+import com.dad.springcloud.Utils.HtmlToPdfUtils;
 import com.dad.springcloud.Utils.WordTableToPdf.SoMap;
 import com.dad.springcloud.Utils.WordTableToPdf.WordUtil;
 import com.dad.springcloud.entities.vo.BaseClass;
 import com.dad.springcloud.entities.vo.ReportVo;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.BaseFont;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+
+import java.io.*;
 import java.util.*;
 import com.dad.springcloud.Utils.WordTableToPdf.ExportData;
 import com.dad.springcloud.service.FileService;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Service;
 
 /**
@@ -87,6 +93,29 @@ public class FileServiceImpl implements FileService {
 
         }
     }
+
+
+
+    public static void testHtmlToPdf(String[] args) throws IOException, DocumentException {
+        String file = "D:\\dailyTestFIle\\toPdf\\testWind1108.pdf";
+        String htmlFile="D:\\dailyTestFIle\\statementinfo\\20230707\\020000000176.20231031183032521.html";
+        String waterMarkText =  "";
+        InputStream inputStream=new FileInputStream(htmlFile);
+        //微软雅黑在windows系统里的位置如下，linux系统直接拷贝该文件放在linux目录下即可
+        BaseFont bf = null;
+        ApplicationHome home = new ApplicationHome(PaymentServiceImpl.class);
+        File jarFile = home.getDir();
+        String    rootPath = jarFile.getPath();
+        String   mouldPath = rootPath.substring(0,rootPath.indexOf("cloud-provider-payment-8001")+"cloud-provider-payment-8001".length())+"\\src\\main\\resources\\Fonts";
+        mouldPath = mouldPath.replace("\\","/");
+        HtmlToPdfUtils.convertToPdf(inputStream, waterMarkText, mouldPath, new FileOutputStream(file));
+    }
+
+
+
+
+
+
 
 
 }

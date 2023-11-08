@@ -1,10 +1,12 @@
 package com.dad.springcloud.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.dad.springcloud.entities.dao.Payment;
 import com.dad.springcloud.entities.vo.CommonResult;
 import com.dad.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -21,6 +24,8 @@ public class PaymentController {
     @Resource
     private PaymentService paymentService;
 
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
     @PostMapping(value = "/create")
     public CommonResult create(@Validated @RequestBody Payment payment){
         int result=paymentService.createPayment(payment);
@@ -30,6 +35,8 @@ public class PaymentController {
         }else{
             return new CommonResult(500,"插入数据库失败",null);
         }
+
+
     }
 
 
@@ -51,12 +58,47 @@ public class PaymentController {
     @PostMapping(value="/upPayment")
     public CommonResult upPaymentById(@Validated @RequestBody Payment payment){
 
-        int result=paymentService.upPayment(payment);
-        if(result>0){
-            return new CommonResult(200,"修改成功",result) ;
-        }else{
-            return new CommonResult(999,"修改失败请检查参数",null);
-        }
+
+
+
+        String key = "upPaymentById" + payment.getId();
+
+       try{
+           Boolean setResult = stringRedisTemplate.opsForValue().setIfAbsent(key,String.valueOf( payment.getId()), 10, TimeUnit.SECONDS);
+
+           if (Boolean.FALSE.equals(setResult)) {
+                log.warn("锁仓信息校验，尝试加锁失败，跳过业务处理，原交易id：{}", payment.getId());
+
+               return new CommonResult(200,"该交易正在更新") ;
+            }
+           log.info("锁仓信息校验，尝试加锁成功，开始业务处理，原交易id：{}", payment.getId());
+           int result=paymentService.upPayment(payment);
+           if(result>0){
+               return new CommonResult(200,"修改成功",result) ;
+           }else{
+               return new CommonResult(999,"修改失败请检查参数",null);
+           }
+
+        }catch(Exception e){
+           log.error("锁仓信息校验异常e：{}", JSONObject.toJSONString(e));
+           return new CommonResult(999,"修改失败请联系管理员") ;
+
+        }finally {
+           try {
+               if (Boolean.TRUE.equals(stringRedisTemplate.hasKey(key))) {
+                   Boolean delete = stringRedisTemplate.delete(key);
+                   log.info("更新操作，原交易id：{}，释放锁结果：{}", payment.getId(), delete);
+               }
+           } catch (Exception e) {
+               log.error("锁仓信息校验，原交易id：{}，释放锁异常e：{}", payment.getId(), JSONObject.toJSONString(e));
+           }
+       }
+
+
+
+
+
+
     }
 
     @PostMapping(value="/delPaymentById/{id}")
