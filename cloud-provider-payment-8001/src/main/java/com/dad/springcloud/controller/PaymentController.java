@@ -58,46 +58,12 @@ public class PaymentController {
     @PostMapping(value="/upPayment")
     public CommonResult upPaymentById(@Validated @RequestBody Payment payment){
 
-
-
-
-        String key = "upPaymentById" + payment.getId();
-
-       try{
-           Boolean setResult = stringRedisTemplate.opsForValue().setIfAbsent(key,String.valueOf( payment.getId()), 10, TimeUnit.SECONDS);
-
-           if (Boolean.FALSE.equals(setResult)) {
-                log.warn("锁仓信息校验，尝试加锁失败，跳过业务处理，原交易id：{}", payment.getId());
-
-               return new CommonResult(200,"该交易正在更新") ;
-            }
-           log.info("锁仓信息校验，尝试加锁成功，开始业务处理，原交易id：{}", payment.getId());
-           int result=paymentService.upPayment(payment);
-           if(result>0){
-               return new CommonResult(200,"修改成功",result) ;
-           }else{
-               return new CommonResult(999,"修改失败请检查参数",null);
-           }
-
-        }catch(Exception e){
-           log.error("锁仓信息校验异常e：{}", JSONObject.toJSONString(e));
-           return new CommonResult(999,"修改失败请联系管理员") ;
-
-        }finally {
-           try {
-               if (Boolean.TRUE.equals(stringRedisTemplate.hasKey(key))) {
-                   Boolean delete = stringRedisTemplate.delete(key);
-                   log.info("更新操作，原交易id：{}，释放锁结果：{}", payment.getId(), delete);
-               }
-           } catch (Exception e) {
-               log.error("锁仓信息校验，原交易id：{}，释放锁异常e：{}", payment.getId(), JSONObject.toJSONString(e));
-           }
-       }
-
-
-
-
-
+        int result=paymentService.upPayment(payment);
+        if(result>0){
+            return new CommonResult(200,"修改成功",result) ;
+        }else{
+            return new CommonResult(999,"修改失败请检查参数",null);
+        }
 
     }
 
