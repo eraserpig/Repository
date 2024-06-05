@@ -22,8 +22,8 @@ import java.util.Set;
  * @Date 2018/3/29 14:24
  * @Version V1.0
  *******************************************/
-public class WordUtils {
-    public static Logger logger = LoggerFactory.getLogger(WordUtils.class);
+public class WordUtilsA {
+    public static Logger logger = LoggerFactory.getLogger(WordUtilsA.class);
 /**
         * 根据模板生成新word文档
      * 判断表格是需要替换还是需要插入，判断逻辑有$为替换，表格无$为插入
@@ -43,9 +43,9 @@ public class WordUtils {
             CustomXWPFDocument document = new CustomXWPFDocument(POIXMLDocument.openPackage(inputUrl));
             logger.info("------获取docx解析对象-----"+document);
             //解析替换文本段落对象
-            WordUtils.changeText(document, textMap);
+            WordUtilsA.changeText(document, textMap);
             //解析替换表格对象
-            WordUtils.changeTable(document, textMap, tableList);
+            WordUtilsA.changeTable(document, textMap, tableList);
             logger.info("------替换后docx对象-----"+document);
             //生成新的word
             File file = new File(outputUrl);

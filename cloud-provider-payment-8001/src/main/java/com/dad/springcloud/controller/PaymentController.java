@@ -6,7 +6,6 @@ import com.dad.springcloud.entities.dao.Payment;
 import com.dad.springcloud.entities.vo.CommonResult;
 import com.dad.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+
+
 
 
 @RestController
@@ -23,9 +23,6 @@ import java.util.concurrent.TimeUnit;
 public class PaymentController {
     @Resource
     private PaymentService paymentService;
-
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
     @PostMapping(value = "/create")
     public CommonResult create(@Validated @RequestBody Payment payment){
         int result=paymentService.createPayment(payment);

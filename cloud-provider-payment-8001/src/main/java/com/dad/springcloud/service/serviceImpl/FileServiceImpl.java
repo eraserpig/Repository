@@ -1,8 +1,11 @@
 package com.dad.springcloud.service.serviceImpl;
 
+import cn.hutool.core.date.DateUtil;
 import com.dad.springcloud.Utils.HtmlToPdfUtils;
 import com.dad.springcloud.Utils.WordTableToPdf.SoMap;
 import com.dad.springcloud.Utils.WordTableToPdf.WordUtil;
+import com.dad.springcloud.Utils.WordUtilsA;
+import com.dad.springcloud.Utils.wordToPdf.WordUtils;
 import com.dad.springcloud.entities.vo.BaseClass;
 import com.dad.springcloud.entities.vo.ReportVo;
 import com.itextpdf.text.DocumentException;
@@ -11,11 +14,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.*;
 import com.dad.springcloud.Utils.WordTableToPdf.ExportData;
 import com.dad.springcloud.service.FileService;
 import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author gmq
@@ -84,6 +91,7 @@ public class FileServiceImpl implements FileService {
         return data;
     }
 
+
     private String[] getDate(String date) {
         if (date.contains(" ")) {
 
@@ -96,9 +104,9 @@ public class FileServiceImpl implements FileService {
 
 
 
-    public static void testHtmlToPdf(String[] args) throws IOException, DocumentException {
-        String file = "D:\\dailyTestFIle\\toPdf\\testWind1108.pdf";
-        String htmlFile="D:\\dailyTestFIle\\statementinfo\\20230707\\020000000176.20231031183032521.html";
+    public static void  main(String[] args) throws IOException, DocumentException {
+        String file = "D:\\dailyTestFIle\\toPdf\\testWind07075.pdf";
+        String htmlFile="D:\\dailyTestFIle\\statementinfo\\20230707\\020000000042.20231130104152423.html";
         String waterMarkText =  "";
         InputStream inputStream=new FileInputStream(htmlFile);
         //微软雅黑在windows系统里的位置如下，linux系统直接拷贝该文件放在linux目录下即可
@@ -112,6 +120,44 @@ public class FileServiceImpl implements FileService {
     }
 
 
+
+    @Override
+    public String getOutwardRemittanceNotice(Map paramMap, HttpServletResponse response) {
+
+        String out = "";
+        log.info("FileServiceImpl getOutwardRemittanceNotice begin>>>>>>>>>>>>>>>");
+        log.info(paramMap.toString());
+        String pdfFileNm = "OutwardRemittanceNotice.pdf";
+        DecimalFormat df1 = new DecimalFormat("##,##0.00");
+        WordUtils wordUtil = new WordUtils();
+        Map<String, Object> params = new HashMap<String, Object>(16);
+        params.put("${custNameEN}", paramMap.get("custNameEN"));
+        params.put("${custNameCN}", paramMap.get("custNameCN"));
+        response.reset();
+        response.setCharacterEncoding("utf-8");
+        log.info("参数初始化处理完成>>>>>>>>>>>>>>>");
+        try {
+            //模板文件位置
+            String path = "D:/dailyTestFIle/wordToPdf";
+            response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode(pdfFileNm, "UTF-8"));
+            response.setHeader("filename", URLEncoder.encode(pdfFileNm, "UTF-8"));
+            out = wordUtil.getWordPrePdf(path, "/Daily-test.docx ", params, new ArrayList<>(), pdfFileNm);
+            //Daily-test.docx test1.docx
+        } catch (Exception e) {
+            log.info("生成PDF文件流异常", e.getMessage());
+        }
+        //文件上传ftp
+        File file = new File(out);
+        String date = String.format(DateUtil.today(), "yyyyMMdd");
+        //流水号
+        String tlSnCd = (String) paramMap.get("tlSnCd");
+        String customerId ="020000000032";
+        String fileName = "testWordToPdf.pdf";
+        String path = "D:/dailyTestFIle/wordToPdf/produce/" + date + "/" + customerId + "/";
+        String tmpFileName = path + fileName;
+
+        return out;
+    }
 
 
 

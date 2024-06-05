@@ -7,6 +7,7 @@ import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.font.FontProvider;
@@ -43,7 +44,7 @@ public class HtmlToPdfUtils {
         pdfDocument.setDefaultPageSize(PageSize.A1);
 
         //添加水印
-       // pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new WaterMarkEventHandler(waterMark));
+       pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new WaterMarkEventHandler(waterMark));
 
         //添加页码
         pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE,new PageEventHandler());

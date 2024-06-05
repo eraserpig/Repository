@@ -11,9 +11,11 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 
 /**
  * @Author gmq
@@ -49,6 +51,12 @@ public class FileDealController {
 
 
 
+    @ApiOperation("下载文件")
+    @PostMapping("/getOutwardRemittance")
+    public String getOutwardRemittance(@RequestBody Map requestJson, HttpServletResponse response) {
+        log.info("下载出款通知单");
+        return fileService.getOutwardRemittanceNotice(requestJson, response);
+    }
 
 
 

@@ -1,20 +1,15 @@
 package com.dad.springcloud.service.serviceImpl;
 
-import com.dad.springcloud.Utils.HtmlToPdfUtils;
-import com.dad.springcloud.Utils.WordUtils;
+import com.dad.springcloud.Utils.WordUtilsA;
 import com.dad.springcloud.dao.PaymentDao;
 import com.dad.springcloud.entities.dao.Payment;
 import com.dad.springcloud.service.PaymentService;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.BaseFont;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
@@ -70,7 +65,7 @@ public class PaymentServiceImpl implements  PaymentService{
         log.info(paramMap.toString());
         String pdfFileNm = "OutwardRemittanceNotice.pdf";
         DecimalFormat df1 = new DecimalFormat("##,##0.00");
-        WordUtils wordUtil=new WordUtils();
+        WordUtilsA wordUtil=new WordUtilsA();
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("custEngNm", paramMap.get("custEngNm"));
         params.put("custChnNm", paramMap.get("custChnNm"));
