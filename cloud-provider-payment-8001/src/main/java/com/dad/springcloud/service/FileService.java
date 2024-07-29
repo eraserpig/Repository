@@ -13,4 +13,7 @@ public interface FileService {
     byte[] getWordByte(String startDate, String endDate, String type);
 
     String getOutwardRemittanceNotice(Map requestJson, HttpServletResponse response);
+
+
+
 }

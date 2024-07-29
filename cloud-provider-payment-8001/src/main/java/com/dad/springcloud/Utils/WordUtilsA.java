@@ -229,7 +229,7 @@ public class WordUtilsA {
      * @param cell
      * @param cellText
      */
-    private static void getParagraph(XWPFTableCell cell,String cellText){
+  /*  private static void getParagraph(XWPFTableCell cell,String cellText){
         CTP ctp = CTP.Factory.newInstance();
         XWPFParagraph p = new XWPFParagraph(ctp, cell);
         p.setAlignment(ParagraphAlignment.CENTER);
@@ -241,7 +241,7 @@ public class WordUtilsA {
         fonts.setEastAsia("仿宋");
         fonts.setHAnsi("仿宋");
         cell.setParagraph(p);
-    }
+    }*/
 
 
     /**
